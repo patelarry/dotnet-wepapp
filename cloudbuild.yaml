@@ -1,15 +1,16 @@
 steps:
-  #build
+  # Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - build
       - '-t'
       - 'us-central1-docker.pkg.dev/gcp-praticals/artifactnewrep:latest'
-      - .
+      - '.'
+  # Push the Docker image
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - push
       - 'us-central1-docker.pkg.dev/gcp-praticals/artifactnewrep:latest'
+
 options:
   logging: CLOUD_LOGGING_ONLY
-
