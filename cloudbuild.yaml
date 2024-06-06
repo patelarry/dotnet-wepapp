@@ -45,7 +45,7 @@
         gcloud deploy releases create my-app-release-$BUILD_ID \
           --project=$PROJECT_ID \
           --region=us-central1 
-          --delivery-pipeline=demo-1
+          --delivery-pipeline=demo-2
           --rendering-config=cloud-deploy/render-config.yaml \
           --source=us-central1-docker.pkg.dev/gcp-praticals/artifactnewrep/web:latest
 
