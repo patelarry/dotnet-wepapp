@@ -1,4 +1,27 @@
-steps:
+# steps:
+#   # Build the Docker image
+#   - name: 'gcr.io/cloud-builders/docker'
+#     args:
+#       - build
+#       - '-t'
+#       - 'us-central1-docker.pkg.dev/gcp-praticals/artifactnewrep/web:latest'
+#       - '.'
+
+#   # Push the Docker image to Artifact Registry
+#   - name: 'gcr.io/cloud-builders/docker'
+#     args:
+#       - push
+#       - 'us-central1-docker.pkg.dev/gcp-praticals/artifactnewrep/web:latest'
+# options:
+#   logging: CLOUD_LOGGING_ONLY
+
+# images:
+#   - 'us-central1-docker.pkg.dev/gcp-praticals/artifactnewrep/web:latest'
+
+
+
+
+  steps:
   # Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
     args:
@@ -13,10 +36,29 @@ steps:
       - push
       - 'us-central1-docker.pkg.dev/gcp-praticals/artifactnewrep/web:latest'
 
-
+  # Deploy the image using Google Cloud Deploy
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gcloud deploy releases create my-app-release-$BUILD_ID \
+          --project=$PROJECT_ID \
+          --region=us-central1 
+          --delivery-pipeline=demo-1
+          --rendering-config=cloud-deploy/render-config.yaml \
+          --source=us-central1-docker.pkg.dev/gcp-praticals/artifactnewrep/web:latest
 
 options:
   logging: CLOUD_LOGGING_ONLY
 
 images:
   - 'us-central1-docker.pkg.dev/gcp-praticals/artifactnewrep/web:latest'
+
+substitutions:
+  _REGION: 'us-central1'
+  _SERVICE: 'my-app'
+  _DEPLOYMENT_NAME: 'my-app-release'
+timeout: '1200s'
+
+
