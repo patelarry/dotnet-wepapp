@@ -42,8 +42,8 @@
     args:
       - '-c'
       - |
-        gcloud deploy releases create my-app-release-$BUILD_ID \
-          --project=$PROJECT_ID \
+        gcloud deploy releases create my-app-release-$BUILD_ID 
+          --project=gcp-praticals
           --region=us-central1 
           --delivery-pipeline=demo-2
           --rendering-config=cloud-deploy/render-config.yaml \
