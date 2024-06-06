@@ -1,9 +1,9 @@
 apiVersion: skaffold/v4beta7
 kind: Config
 metadata: 
-  name: demo-1-target-11
+  name: demo-2
 profiles:
-- name: dev
+- name: demo-1
   manifests:
     rawYaml:
     - cloud-deploy/demo-1-target-11/dev/dev.yaml
